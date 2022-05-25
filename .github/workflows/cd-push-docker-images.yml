@@ -15,9 +15,9 @@ jobs:
             image: spinozaacr.azurecr.io/spinoza.backend.managers.catalogmanager
           - dockerfile: ./backend/Accessors/TestCatalogAccessor/Dockerfile
             image: spinozaacr.azurecr.io/spinoza.backend.accessors.testaccessor
-          - dockerfile: ./backend/Accessors/QuestionCatalogAccessor/Dockerfile
+          - dockerfile: ./backend/Accessors/Spinoza.Backend.Accessor.QuestionCatalog/Dockerfile
             image: spinozaacr.azurecr.io/spinoza.backend.accessors.qustionaccessor
-          - dockerfile: ./backend/Accessors/TagCatalogAccessor/Dockerfile
+          - dockerfile: ./backend/Accessors/Spinoza.Backend.Accessor.TagCatalog/Dockerfile
             image: spinozaacr.azurecr.io/spinoza.backend.accessors.tagaccessor
     permissions:
       contents: read
