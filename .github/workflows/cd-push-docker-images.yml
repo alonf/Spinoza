@@ -11,13 +11,13 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./backend/Managers/CatalogManager/Dockerfile
+          - folde: ./backend/Managers/CatalogManager/
             image: spinozaacr.azurecr.io/spinoza.backend.managers.catalogmanager
-          - dockerfile: ./backend/Accessors/TestCatalogAccessor/Dockerfile
+          - folder: ./backend/Accessors/TestCatalogAccessor/
             image: spinozaacr.azurecr.io/spinoza.backend.accessors.testaccessor
-          - dockerfile: ./backend/Accessors/QuestionCatalogAccessor/Dockerfile
+          - folder: ./backend/Accessors/QuestionCatalogAccessor/
             image: spinozaacr.azurecr.io/spinoza.backend.accessors.qustionaccessor
-          - dockerfile: ./backend/Accessors/TagCatalogAccessor/Dockerfile
+          - folder: ./backend/Accessors/TagCatalogAccessor/
             image: spinozaacr.azurecr.io/spinoza.backend.accessors.tagaccessor
     permissions:
       contents: read
@@ -40,8 +40,8 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: .
-          file: ${{ matrix.dockerfile }}
+          context: ${{ matrix.folder }}
+          file: ${{ matrix.folder }}Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
