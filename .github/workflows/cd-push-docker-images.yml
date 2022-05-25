@@ -11,7 +11,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - folde: ./backend/Managers/CatalogManager/
+          - folder: ./backend/Managers/CatalogManager/
             image: spinozaacr.azurecr.io/spinoza.backend.managers.catalogmanager
           - folder: ./backend/Accessors/TestCatalogAccessor/
             image: spinozaacr.azurecr.io/spinoza.backend.accessors.testaccessor
