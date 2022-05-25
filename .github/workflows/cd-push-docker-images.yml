@@ -24,8 +24,8 @@ jobs:
       packages: write
 
     steps:
-      - name: pwd
-        run: pwd
+      - name: ls
+        run: ls -lR
       - name: Checkout repository
         uses: actions/checkout@v2
       - uses: azure/docker-login@v1
