@@ -27,7 +27,7 @@ jobs:
         inlineScript: |
           az account show
           az group create --name spinoza-cont-app-rg --location westeurope
-          az deployment group create --resource-group spinoza-cont-app-rg --template-file main.bicep \
+          az deployment group create --resource-group spinoza-cont-app-rg --template-file infra/main.bicep \
              --parameters branchName='main' containerRegistryPassword= ${{ACR_PASSWORD}}  \
              cosmosDBConnectionString=${{COSMOSDB_CONNECTION_STRING}}
 
