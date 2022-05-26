@@ -189,6 +189,7 @@ resource signalR 'Microsoft.SignalRService/signalR@2022-02-01' = {
         }
       ]
     }
+    /*
     upstream: {
       templates: [
         {
@@ -198,7 +199,7 @@ resource signalR 'Microsoft.SignalRService/signalR@2022-02-01' = {
           urlTemplate: 'https://spinoza.com/spinozahub/api/connect'
         }
       ]
-    }
+    }*/
   }
 }
 
@@ -351,10 +352,6 @@ resource daprComponentQuestionAccessorRequestQueue 'Microsoft.App/managedEnviron
       }
       {
         name: 'queueName'
-        value: 'testaccessor'
-      }
-      {
-        name: 'queueName'
         value: 'questionaccessor'
       }
       {
@@ -389,10 +386,6 @@ resource daprComponentTagAccessorRequestQueue 'Microsoft.App/managedEnvironments
       }
       {
         name: 'queueName'
-        value: 'testaccessor'
-      }
-      {
-        name: 'queueName'
         value: 'tagaccessor'
       }
       {
@@ -424,6 +417,10 @@ resource SpinozaBackendAccessorsTestAccessorContainerApp 'Microsoft.App/containe
         {
           name: 'container-registry-password-ref'
           value: containerRegistryPassword
+        }
+        {
+          name: 'servicebuskeyref'
+          value: serviceBusConnectionString
         }
       ]
       registries: [
@@ -462,7 +459,25 @@ resource SpinozaBackendAccessorsTestAccessorContainerApp 'Microsoft.App/containe
       scale: {
         minReplicas: minReplicas
         maxReplicas: maxReplicas
-      }
+        rules: [
+          {
+            name: 'queue-based-scaling'
+            custom: {
+              type: 'azure-servicebus'
+              metadata: {
+                queueName: 'testaccessor'
+                messageCount: '1'
+              }
+              auth: [
+                 {
+                    secretRef: 'servicebuskeyref'
+                    triggerParameter: 'connection'
+                 }
+                ]
+            }
+          }
+          ]
+       }
     }
   }
 }
@@ -484,6 +499,10 @@ resource SpinozaBackendAccessorsQuestionAccessorContainerApp 'Microsoft.App/cont
         {
           name: 'container-registry-password-ref'
           value: containerRegistryPassword
+        }
+        {
+          name: 'servicebuskeyref'
+          value: serviceBusConnectionString
         }
       ]
       registries: [
@@ -522,7 +541,25 @@ resource SpinozaBackendAccessorsQuestionAccessorContainerApp 'Microsoft.App/cont
       scale: {
         minReplicas: minReplicas
         maxReplicas: maxReplicas
-      }
+        rules: [
+          {
+            name: 'queue-based-scaling'
+            custom: {
+              type: 'azure-servicebus'
+              metadata: {
+                queueName: 'questionaccessor'
+                messageCount: '1'
+              }
+              auth: [
+                 {
+                    secretRef: 'servicebuskeyref'
+                    triggerParameter: 'connection'
+                 }
+                ]
+            }
+          }
+          ]
+       }
     }
   }
 }
@@ -545,6 +582,10 @@ resource SpinozaBackendAccessorsTagAccessorContainerApp 'Microsoft.App/container
         {
           name: 'container-registry-password-ref'
           value: containerRegistryPassword
+        }
+        {
+          name: 'servicebuskeyref'
+          value: serviceBusConnectionString
         }
       ]
       registries: [
@@ -583,7 +624,25 @@ resource SpinozaBackendAccessorsTagAccessorContainerApp 'Microsoft.App/container
       scale: {
         minReplicas: minReplicas
         maxReplicas: maxReplicas
-      }
+        rules: [
+          {
+            name: 'queue-based-scaling'
+            custom: {
+              type: 'azure-servicebus'
+              metadata: {
+                queueName: 'tagaccessor'
+                messageCount: '1'
+              }
+              auth: [
+                 {
+                    secretRef: 'servicebuskeyref'
+                    triggerParameter: 'connection'
+                 }
+                ]
+            }
+          }
+          ]
+       }
     }
   }
 }
