@@ -81,7 +81,7 @@ resource cosmosAccount 'Microsoft.DocumentDB/databaseAccounts@2021-04-15' = {
 //  }
 //}
 
-param serviceBusNamespaceName string = 'myapp${uniqueString(resourceGroup().id)}'
+param serviceBusNamespaceName string = 'spinoza-sb-${uniqueString(resourceGroup().id)}'
 param skuName string = 'Standard'
 
 param queueNames array = [
