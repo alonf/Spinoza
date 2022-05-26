@@ -19,7 +19,8 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+    - name: pwd
+      run: pwd
     - name: Azure CLI script
       uses: azure/CLI@v1
       with:
